@@ -1,0 +1,28 @@
+{
+	"name": "bistro/swell",
+	"description": "A library to add functionality to the Slim PHP Microframework.",
+	"type": "library",
+	"keywords": ["slim", "swell", "enhance", "extended", "extend"],
+	"license": "MIT",
+
+	"authors": [
+		{
+			"name": "Dave Widmer",
+			"email": "dave@davewidmer.net",
+			"role": "Developer"
+		}
+	],
+
+	"require": {
+		"php": ">=5.3",
+		"slim/slim": "2.2.*",
+		"mustache/mustache": "2.3.*"
+	},
+
+	"autoload": {
+		"psr-0": {
+			"Bistro\\Swell": "lib/"
+		}
+	}
+
+}
