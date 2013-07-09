@@ -2,7 +2,7 @@
 
 The Slim PHP microframework is awesome. After developing with it for a while there
 were some patterns that that showed up. This library is an attempt to keep
-the awesome'ness of Slim which adding some developer friendly featrues.
+the awesome'ness of Slim while adding some developer friendly features.
 
 ## In Heavy Development
 
