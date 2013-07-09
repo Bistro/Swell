@@ -1,0 +1,10 @@
+# Bistro: Swell
+
+The Slim PHP microframework is awesome. After developing with it for a while there
+were some patterns that that showed up. This library is an attempt to keep
+the awesome'ness of Slim which adding some developer friendly featrues.
+
+## In Heavy Development
+
+This library is still in heavy development. If you want to help, then fork the
+repo and jump in.
