@@ -5,6 +5,11 @@ namespace Bistro\Swell;
 class App extends \Slim\Slim
 {
 	/**
+	 * @var \Bistro\Data\Adapter\PDO
+	 */
+	protected $pdo = null;
+
+	/**
 	 * An easy hook for restful resources.
 	 *
 	 * It takes the same arguments as a call to any Slim Routing.
@@ -63,6 +68,33 @@ class App extends \Slim\Slim
 		}
 
 		return $path;
+	}
+
+	/**
+	 * @return \Bistro\Data\Adapter\PDO  The PDO adapter instance used for data.
+	 */
+	public function pdo()
+	{
+		if ($this->pdo === null)
+		{
+			$db = $this->settings('database');
+			$pdo = new \PDO("mysql:dbname={$db['database']};host={$db['host']}", $db['user'], $db['password']);
+			$this->pdo = new \Bistro\Data\Adapter\PDO($pdo);
+		}
+
+		return $this->pdo;
+	}
+
+	/**
+	 * @see    \Bistro\Data\Table
+	 *
+	 * @param  string $name    The class name of the table
+	 * @param  array  $options Any additional options for the table class
+	 * @return \Bistro\Data\Table
+	 */
+	public function table($name, $options = array())
+	{
+		return new $name($this->pdo(), $options);
 	}
 
 }
