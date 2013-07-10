@@ -3,8 +3,53 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "12e4f3adbf4c46365e6770e04565991c",
+    "hash": "7d3218d2ca712d67bb26dce7486c223c",
     "packages": [
+        {
+            "name": "bistro/data",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bistro/Data.git",
+                "reference": "0.7.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bistro/Data/zipball/0.7.0",
+                "reference": "0.7.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bistro\\Data": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Widmer",
+                    "email": "dave@davewidmer.net",
+                    "homepage": "http://www.davewidmer.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A collection of classes to make data management easy",
+            "keywords": [
+                "collection",
+                "database",
+                "mysql",
+                "pdo",
+                "query builder"
+            ],
+            "time": "2013-07-10 17:26:47"
+        },
         {
             "name": "mustache/mustache",
             "version": "v2.3.1",

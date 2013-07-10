@@ -16,7 +16,8 @@
 	"require": {
 		"php": ">=5.3",
 		"slim/slim": "2.2.*",
-		"mustache/mustache": "2.3.*"
+		"mustache/mustache": "2.3.*",
+		"bistro/data": "0.7.*"
 	},
 
 	"autoload": {
