@@ -22,27 +22,31 @@ class App extends \Slim\Slim
 		$name = \array_shift($args);
 		$controller = \array_pop($args);
 
-		$get = array_merge(array($name.'(/:id)'), $args, (array) function($id) use ($controller){
-			$controller->execute('get', $id);
-		});
+		$routes = array(
+			'get' => $this->router->map("{$name}(/:id)", function($id) use ($controller){
+				$controller->execute('get', $id);
+			})->via(\Slim\Http\Request::METHOD_GET),
 
-		$post = array_merge(array($name), $args, (array) function() use ($controller){
-			$controller->execute('post');
-		});
+			'post' => $this->router->map($name, function() use ($controller){
+				$controller->execute('post');
+			})->via(\Slim\Http\Request::METHOD_POST),
 
-		$put = array_merge(array($name."/:id"), $args, (array) function($id) use ($controller){
-			$controller->execute('put', $id);
-		});
+			'put' => $this->router->map("{$name}/:id", function($id) use ($controller){
+				$controller->execute('put', $id);
+			})->via(\Slim\Http\Request::METHOD_PUT),
 
-		$delete = array_merge(array($name."/:id"), $args, (array) function($id) use ($controller){
-			$controller->execute('delete', $id);
-		});
+			'delete' => $this->router->map("{$name}/:id", function($id) use ($controller){
+				$controller->execute('delete', $id);
+			})->via(\Slim\Http\Request::METHOD_DELETE),
+		);
 
-		$routes = array();
-		$routes['get'] = \call_user_func_array(array($this, 'get'), $get);
-		$routes['post'] = \call_user_func_array(array($this, 'post'), $post);
-		$routes['put'] = \call_user_func_array(array($this, 'put'), $put);
-		$routes['delete'] = \call_user_func_array(array($this, 'delete'), $delete);
+		if (count($args) > 0)
+		{
+			foreach ($routes as $route)
+			{
+				$route->setMiddleware($args);
+			}
+		}
 
 		return $routes;
 	}
