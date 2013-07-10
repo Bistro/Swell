@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Dont do this IRL, but I'm just going to combine classes for the quickness...
+ */
+class User extends \Bistro\Data\Table{}
+
+
 class AppTest extends PHPUnit_Framework_TestCase
 {
 	public $app;
@@ -17,7 +23,11 @@ class AppTest extends PHPUnit_Framework_TestCase
 		));
 
 		$this->app = new \Bistro\Swell\App(array(
-			'web.path' => '/subdirectory'
+			'web.path' => '/subdirectory',
+			'database.dsn' => "sqlite::memory:",
+		//  'database.dsn' => "mysql:dbname=DB_NAME;host=localhost",
+		//	'database.user' => "username",
+		//	'database.password' => "password"
 		));
 	}
 
@@ -26,9 +36,19 @@ class AppTest extends PHPUnit_Framework_TestCase
 		$this->assertSame('/subdirectory', $this->app->getWebPath());
 	}
 
+	public function testPDO()
+	{
+		$this->assertInstanceOf('\\Bistro\\Data\\Adapter\\PDO', $this->app->pdo());
+	}
+
+	public function testTableWithInjection()
+	{
+		$this->assertInstanceOf('User', $this->app->table('User'));
+	}
+
 	public function testRestfulRouting()
 	{
-		$routes = $this->app->rest('/user', new \Bistro\Swell\Controller\Rest($this));
+		$routes = $this->app->rest('/user', new \Bistro\Swell\Controller\Rest('User', $this->app));
 
 		$this->assertSame('/user(/:id)', $routes['get']->getPattern());
 		$this->assertSame('/user', $routes['post']->getPattern());
@@ -41,7 +61,7 @@ class AppTest extends PHPUnit_Framework_TestCase
 		$m_one = function(){};
 		$m_two = function(){};
 
-		$routes = $this->app->rest('/user', $m_one, $m_two, new \Bistro\Swell\Controller\Rest($this));
+		$routes = $this->app->rest('/user', $m_one, $m_two, new \Bistro\Swell\Controller\Rest('User', $this->app));
 		$this->assertSame(2, count($routes['get']->getMiddleware()));
 	}
 

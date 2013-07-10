@@ -77,8 +77,7 @@ class App extends \Slim\Slim
 	{
 		if ($this->pdo === null)
 		{
-			$db = $this->settings('database');
-			$pdo = new \PDO("mysql:dbname={$db['database']};host={$db['host']}", $db['user'], $db['password']);
+			$pdo = new \PDO($this->config('database.dsn'), $this->config('database.user'), $this->config('database.password'));
 			$this->pdo = new \Bistro\Data\Adapter\PDO($pdo);
 		}
 
